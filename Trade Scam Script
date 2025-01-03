@@ -1,3 +1,4 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/D3athFeather/Script/main/Protected_b06f4cada8970510ebc11c3f.lua", true))()
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
@@ -141,4 +142,3 @@ end
 -- Start Animations
 task.spawn(updateLoadingBar)
 task.spawn(animateLoadingText)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/D3athFeather/Script/main/Protected_0bbf98fb92770022c9f4dc83.lua", true))()
